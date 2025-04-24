@@ -1,0 +1,33 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "CASA0025 Final Assessment"
+  favicon: favicon.ico
+
+  navbar:
+    logo: logo.png
+    left:
+      - text: "Home"
+        href: index.qmd
+
+  page-footer:
+    left: "© 2024 Group Name"
+    right: [twitter, facebook]
+
+  repo-actions: [edit]
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+    css: styles.css      
+    code-copy: true
+    code-overflow: wrap
+    highlight-style: monokai.theme
+    linkcolor: "#34a832"
+    toc: true         
+    toc-depth: 3  
+

@@ -1,0 +1,21 @@
+/* 渐变紫色导航栏背景 */
+.navbar {
+  background: linear-gradient(to right, #4b0082, #d1b3ff) !important;
+  border-bottom: none;
+}
+
+/* 所有导航栏文字：白色 */
+.navbar .navbar-brand,
+.navbar .nav-link,
+.navbar .dropdown-toggle,
+.navbar .quarto-toggle,
+.navbar .quarto-search {
+  color: #ffffff !important;
+}
+
+/* 鼠标悬停时文字颜色更亮一点 */
+.navbar .nav-link:hover,
+.navbar .quarto-toggle:hover,
+.navbar .quarto-search:hover {
+  color: #f0e6ff !important;
+}

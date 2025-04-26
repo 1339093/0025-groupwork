@@ -128,6 +128,7 @@ Replace the link below with the link to your application.
 <iframe src='https://folkloric-vault-452715-s9.projects.earthengine.app/view/casa0025groupfirstclass' width='100%' height='700px'></iframe>
 
 :::
+## 7 Google Earth Engine Application
 
 ### Data pre-processing
 In this project, Shenzhen City is taken as the study area, and the year 2020 is selected as an example to use multi-source remote sensing data for surface cover classification and change analysis. Firstly, the boundary of Shenzhen City was extracted from the FAO GAUL database and centred. Subsequently, Landsat 8 data preprocessing, including cloud masking, radiometric correction and cropping to the study area, was performed.

@@ -103,36 +103,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -178,7 +152,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#exploring-the-ecological-impact-of-urbanization-in-shenzhen" id="toc-exploring-the-ecological-impact-of-urbanization-in-shenzhen" class="nav-link active" data-scroll-target="#exploring-the-ecological-impact-of-urbanization-in-shenzhen">Exploring the Ecological Impact of Urbanization in Shenzhen</a>
+  <li><a href="#analysis-of-the-evolution-of-urban-land-cover-and-environmental-change-in-shenzhen" id="toc-analysis-of-the-evolution-of-urban-land-cover-and-environmental-change-in-shenzhen" class="nav-link active" data-scroll-target="#analysis-of-the-evolution-of-urban-land-cover-and-environmental-change-in-shenzhen">Analysis of the evolution of urban land cover and environmental change in Shenzhen</a>
   <ul class="collapse">
   <li><a href="#project-summary" id="toc-project-summary" class="nav-link" data-scroll-target="#project-summary">1 Project Summary</a></li>
   <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">2 Introduction</a>
@@ -189,9 +163,11 @@ window.Quarto = {
   <li><a href="#problem-statement" id="toc-problem-statement" class="nav-link" data-scroll-target="#problem-statement">3 Problem Statement</a></li>
   <li><a href="#end-user" id="toc-end-user" class="nav-link" data-scroll-target="#end-user">4 End User</a></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">5 Data</a></li>
-  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">6 Methodology</a></li>
-  <li><a href="#application" id="toc-application" class="nav-link" data-scroll-target="#application">7 Application</a></li>
-  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works">How it Works</a></li>
+  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">6 Methodology</a>
+  <ul class="collapse">
+  <li><a href="#data-pre-processing" id="toc-data-pre-processing" class="nav-link" data-scroll-target="#data-pre-processing">Data pre-processing</a></li>
+  <li><a href="#surface-cover-classification-and-area-statistics" id="toc-surface-cover-classification-and-area-statistics" class="nav-link" data-scroll-target="#surface-cover-classification-and-area-statistics">7.2 Surface Cover Classification and Area Statistics</a></li>
+  </ul></li>
   <li><a href="#interaction-design" id="toc-interaction-design" class="nav-link" data-scroll-target="#interaction-design">8 Interaction Design</a></li>
   <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">9 Limitations</a></li>
   <li><a href="#future-work" id="toc-future-work" class="nav-link" data-scroll-target="#future-work">10 Future work</a></li>
@@ -206,33 +182,32 @@ window.Quarto = {
 
 
 
-<section id="exploring-the-ecological-impact-of-urbanization-in-shenzhen" class="level1 page-columns page-full">
-<h1>Exploring the Ecological Impact of Urbanization in Shenzhen</h1>
+<section id="analysis-of-the-evolution-of-urban-land-cover-and-environmental-change-in-shenzhen" class="level1 page-columns page-full">
+<h1>Analysis of the evolution of urban land cover and environmental change in Shenzhen</h1>
 <p><strong>AUTHOR</strong><br>
 .. Group</p>
 <section id="project-summary" class="level2">
 <h2 class="anchored" data-anchor-id="project-summary">1 Project Summary</h2>
-<p>This project explores the environmental impacts of rapid urbanization in Shenzhen using remote sensing data and geospatial analysis on the Google Earth Engine platform. By combining vegetation, urban, and water-related indices with auxiliary datasets such as nighttime lights and air pollution, the study offers a multi-dimensional perspective on urban expansion and its ecological consequences.</p>
-<p>Through a land cover classification and time-series analysis from both monthly and annual scales, the project captures spatial patterns and temporal changes in surface conditions. The results provide valuable references for understanding the balance between urban growth and environmental sustainability, offering practical support for planning and decision-making in urban and ecological management.</p>
+<p>This project investigates the ecological impacts of rapid urbanization in Shenzhen by leveraging multi-source remote sensing data and geospatial analysis on the Google Earth Engine platform. Through the integration of spectral indices such as NDBBI, EVI, MNDWI, BSI, and land surface temperature (LST), combined with land cover classification and time-series analysis at both monthly and annual scales, the study captures spatial patterns and temporal trends of key surface changes. In addition, nighttime light intensity and NO₂ concentration data are incorporated to assess the relationship between urban expansion, human activities, and environmental quality. The results provide dynamic, multi-dimensional evidence to support sustainable urban planning and ecological management.</p>
 </section>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">2 Introduction</h2>
 <section id="background" class="level3">
 <h3 class="anchored" data-anchor-id="background">2.1 Background</h3>
-<p>Shenzhen, situated in the Pearl River Delta of southern China, has undergone rapid urbanization and economic transformation over recent decades, transitioning from a small fishing village into a major global metropolis. This rapid urban growth has brought significant economic benefits but also substantial environmental challenges, including increased urban heat islands, reduced vegetation coverage, water quality degradation, and heightened air pollution. Understanding and mitigating these ecological impacts is critical for ensuring sustainable urban development and maintaining quality of life for residents.</p>
+<p>Shenzhen, located in the Pearl River Delta region of southern China, has experienced rapid urbanization and economic transformation over the past few decades, evolving from a small fishing village into a major global metropolis. While this urban growth has generated significant economic prosperity, it has also led to substantial environmental challenges, including intensified urban heat island effects, declining vegetation cover, water quality degradation, and increased air pollution. Understanding and addressing these ecological impacts are essential for promoting sustainable urban development and safeguarding the quality of life for residents.</p>
 </section>
 <section id="literature-review" class="level3">
 <h3 class="anchored" data-anchor-id="literature-review">2.2 Literature review</h3>
-<p>Urbanization significantly alters land surface characteristics, affecting local climate, hydrology, and biodiversity (Seto et al., 2012; Grimm et al., 2008). Zhou et al.&nbsp;(2017) demonstrated a strong link between urban expansion and intensified urban heat island effects, highlighting the role of vegetation in regulating urban microclimates. The Enhanced Vegetation Index (EVI) serves as a robust tool for assessing vegetation health and ecological quality in urban settings (Huete et al., 2002).</p>
-<p>Urban growth often results in the loss of permeable surfaces, increased runoff, and degradation of water quality, phenomena effectively monitored by the Modified Normalized Difference Water Index (MNDWI) (Xu, 2006). Likewise, indices such as the Normalized Difference Built-up Index (NDBBI) and the Bare Soil Index (BSI) provide quantitative means to track urban development and its ecological implications (Zha et al., 2003).</p>
-<p>Nighttime light imagery has emerged as a valuable proxy for urbanization intensity and human activity, correlating well with energy use and environmental pressures (Elvidge et al., 2013). The increasing availability of time-series satellite data, particularly from Landsat and MODIS, has further enabled the analysis of long-term urban ecological trends and seasonal variations (Weng et al., 2014).</p>
-<p>In addition, studies have shown a close relationship between urban land expansion and atmospheric pollutants, including NO₂ concentrations, especially in rapidly growing metropolitan areas (Zheng et al., 2018). With the integration of remote sensing and machine learning approaches such as Random Forest classifiers, the precision of land cover mapping has improved considerably, supporting more detailed and scalable urban ecological assessments (Belgiu &amp; Drăguţ, 2016).</p>
+<p>Urbanization significantly alters land surface characteristics, influencing local climate, hydrology, and biodiversity (Seto et al., 2012; Grimm et al., 2008). Urban expansion has been strongly linked to intensified urban heat island effects, with vegetation playing a crucial role in regulating urban microclimates (Zhou et al., 2017). The Enhanced Vegetation Index (EVI) has proven effective for assessing vegetation health and ecological conditions in urban environments (Huete et al., 2002).</p>
+<p>Urban growth often leads to the loss of permeable surfaces, increased surface runoff, and degradation of water quality, challenges that can be effectively monitored through indices such as the Modified Normalized Difference Water Index (MNDWI) (Xu, 2006). Similarly, the Normalized Difference Built-up Index (NDBBI) and the Bare Soil Index (BSI) offer quantitative means to characterize urban development and its ecological impacts (Zha et al., 2003).</p>
+<p>Nighttime light imagery has emerged as a valuable proxy for urbanization intensity and human activities, correlating with patterns of energy consumption and environmental stress (Elvidge et al., 2013). The increasing availability of long-term satellite observations, particularly from Landsat and MODIS platforms, has further facilitated the analysis of urban ecological dynamics over time (Weng et al., 2014).Recent advances in time-series remote sensing analysis have enabled more detailed tracking of urban ecological changes across different temporal scales, facilitating the identification of seasonal and interannual patterns (Zhu &amp; Woodcock, 2014).</p>
+<p>Furthermore, urban land expansion has been associated with rising levels of atmospheric pollutants, such as NO₂, especially in rapidly developing metropolitan areas (Zheng et al., 2018). The integration of remote sensing data with machine learning algorithms, such as Random Forest classifiers, has significantly enhanced the accuracy and scalability of urban land cover mapping (Belgiu &amp; Drăguţ, 2016).</p>
 </section>
 </section>
 <section id="problem-statement" class="level2">
 <h2 class="anchored" data-anchor-id="problem-statement">3 Problem Statement</h2>
-<p>How does urbanization impact ecological conditions in the Shenzhen region?</p>
-<p>Objective: To develop an interactive application using high-resolution and multi-temporal remote sensing techniques to assess the ecological impacts of urbanization in Shenzhen. By integrating spectral indices such as NDBBI, EVI, BSI, MNDWI, and LST with machine learning classification, the project identifies land cover changes (e.g., vegetation loss, surface temperature rise, water body shrinkage) and analyzes their correlation with urban expansion, aiming to support evidence-based urban planning and environmental management.</p>
+<p>How does urbanization impact Shenzhen’s surface and environmental conditions over time?</p>
+<p>Objective: To build an interactive monitoring and analysis platform that utilizes high-resolution, multi-temporal remote sensing datasets through the Google Earth Engine platform. By integrating indices such as NDBBI, EVI, BSI, MNDWI, and LST with machine learning-based land cover classification, the project identifies spatial patterns and temporal trends of key ecological indicators. It further quantifies the relationships between urban expansion and environmental variables—such as vegetation degradation, surface warming, water body shrinkage, nighttime light intensification, and NO₂ concentration changes—providing dynamic, multi-scale evidence to support sustainable urban planning and environmental management.</p>
 </section>
 <section id="end-user" class="level2">
 <h2 class="anchored" data-anchor-id="end-user">4 End User</h2>
@@ -250,86 +225,230 @@ window.Quarto = {
 </colgroup>
 <thead>
 <tr class="header">
-<th><strong>Data Type</strong></th>
-<th><strong>Dataset &amp; Source</strong></th>
-<th><strong>Usage</strong></th>
-<th><strong>Time Period</strong></th>
+<th style="text-align: left;"><strong>Data Type</strong></th>
+<th style="text-align: left;"><strong>Dataset &amp; Source</strong></th>
+<th style="text-align: left;"><strong>Usage</strong></th>
+<th style="text-align: left;"><strong>Time Period</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>Land Surface Reflectance &amp; Temperature</strong></td>
-<td><code>LANDSAT/LC08/C02/T1_L2</code> – USGS Landsat 8 Collection 2 Tier 1 Level 2</td>
-<td>Used to calculate EVI, NDBBI, BSI, MNDWI, NDMVI, and LST</td>
-<td>2013–2023 (Classification based on 2020)</td>
+<td style="text-align: left;"><strong>Surface Reflectance &amp; Surface Temperature</strong></td>
+<td style="text-align: left;"><code>LANDSAT/LC08/C02/T1_L2</code> – USGS Landsat 8 Collection 2 Tier 1 Level 2</td>
+<td style="text-align: left;">Calculation of spectral indices (EVI, NDBBI, BSI, MNDWI) and land surface temperature (LST); used for classification and temporal analysis</td>
+<td style="text-align: left;">2013–2023 (Classification focused on 2020)</td>
 </tr>
 <tr class="even">
-<td><strong>Digital Elevation Model &amp; Slope/Aspect</strong></td>
-<td><code>USGS/SRTMGL1_003</code> – NASA SRTM DEM (30 m)</td>
-<td>Used for slope, aspect and terrain correction of EVI</td>
-<td>Static (Global DEM)</td>
+<td style="text-align: left;"><strong>Digital Elevation Model &amp; Terrain Attributes</strong></td>
+<td style="text-align: left;"><code>USGS/SRTMGL1_003</code> – NASA SRTM DEM (30 m)</td>
+<td style="text-align: left;">Extraction of slope and aspect for topographic correction of EVI</td>
+<td style="text-align: left;">Static (Global DEM)</td>
 </tr>
 <tr class="odd">
-<td><strong>Nighttime Lights</strong></td>
-<td><code>NOAA/VIIRS/DNB/MONTHLY_V1/VCMSLCFG</code> – VIIRS Monthly DNB</td>
-<td>Used to assess urban activity and monthly urbanization trends</td>
-<td>2013–2023</td>
+<td style="text-align: left;"><strong>Nighttime Lights</strong></td>
+<td style="text-align: left;"><code>NOAA/VIIRS/DNB/MONTHLY_V1/VCMSLCFG</code> – VIIRS Monthly DNB</td>
+<td style="text-align: left;">Monitoring of urban activity intensity and temporal urbanization trends</td>
+<td style="text-align: left;">2013–2023</td>
 </tr>
 <tr class="even">
-<td><strong>Tropospheric NO₂ Column</strong></td>
-<td><code>COPERNICUS/S5P/OFFL/L3_NO2</code> – Sentinel-5P TROPOMI</td>
-<td>Used to evaluate urban-related air pollution</td>
-<td>2018–2023</td>
+<td style="text-align: left;"><strong>Tropospheric NO₂ Concentration</strong></td>
+<td style="text-align: left;"><code>COPERNICUS/S5P/OFFL/L3_NO2</code> – Sentinel-5P TROPOMI</td>
+<td style="text-align: left;">Assessment of urban-related atmospheric pollution</td>
+<td style="text-align: left;">2018–2023</td>
 </tr>
 <tr class="odd">
-<td><strong>Administrative Boundaries</strong></td>
-<td><code>FAO/GAUL_SIMPLIFIED_500m/2015/level2</code> – FAO GAUL Level 2</td>
-<td>Used to define the region of interest (Shenzhen)</td>
-<td>Static</td>
+<td style="text-align: left;"><strong>Administrative Boundaries</strong></td>
+<td style="text-align: left;"><code>FAO/GAUL_SIMPLIFIED_500m/2015/level2</code> – FAO GAUL Level 2</td>
+<td style="text-align: left;">Definition of region of interest (Shenzhen) for spatial analysis</td>
+<td style="text-align: left;">Static (Snapshot in 2015)</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="methodology" class="level2">
+<section id="methodology" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="methodology">6 Methodology</h2>
 <p>Flow chart</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  A["Data Acquisition"]
+  B["Preprocessing (SR &amp; LST Calibration)"]
+  B1["Cloud Masking (maskL8sr)"]
+  C["Spectral Index Calculation (EVI, NDBBI, MNDWI, BSI)"]
+  D["Terrain Correction (only for EVI)"]
+
+  E["Land Cover Classification:
+  - Built-up
+  - 4 Vegetation levels
+  - Water
+  - Other"]
+
+  V["Validation Sample Collection
+  (Stratified random sampling)"]
+
+  F1["Monthly Time-Series Analysis"]
+  F2["Annual Trend Analysis (2013-2023)"]
+
+  G1["Monthly Metrics:
+  - EVI/NDBBI/LST
+  - Nighttime Lights
+  - NO₂ (post-2018)"]
+  
+  G2["Annual Metrics:
+  - Built-up growth rate
+  - Vegetation loss
+  - LST trends
+  - NO₂ correlation"]
+
+  ACC["Accuracy Validation:
+  - OA=94.2%
+  - Kappa=0.911"]
+
+  H["Statistical Analysis:
+  - Area calculation
+  - Change detection"]
+
+  I["Correlation Analysis:
+  - EVI vs NDBBI
+  - LST vs Built-up
+  - NO₂ vs Urbanization"]
+
+  J["Interactive Visualization:
+  - Year slider control
+  - 3 analysis panels
+  - Dynamic charts
+  - Legend display"]
+
+  A --&gt; B
+  B --&gt; B1
+  B1 --&gt; C
+  C --&gt;|NDBBI/BSI/MNDWI| E
+  C --&gt;|EVI| D --&gt; E
+  E --&gt; V
+  V --&gt; ACC
+  E --&gt; F1
+  E --&gt; F2
+  F1 &lt;--&gt; F2
+  F1 --&gt; G1
+  F2 --&gt; G2
+  G1 --&gt; H
+  G2 --&gt; H
+  H --&gt; I
+  I --&gt; J
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 <p>How are you using this data to address the problem?</p>
-</section>
-<section id="application" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="application">7 Application</h2>
+<p>By preprocessing multi-source remote sensing data and calculating key ecological indices (EVI, NDBBI, MNDWI, BSI, LST), we classify land cover types, track monthly and annual changes, and analyze the relationships between urban expansion, environmental degradation, and human activities. This integrated approach provides spatial-temporal evidence to understand and quantify the ecological impacts of Shenzhen’s rapid urbanization. ## 7 Application</p>
 <p>Replace the link below with the link to your application.</p>
 <div class="column-page">
-<iframe src="https://ollielballinger.users.earthengine.app/view/turkey-earthquake" width="100%" height="700px">
+<iframe src="https://folkloric-vault-452715-s9.projects.earthengine.app/view/casa0025groupfirstclass" width="100%" height="700px">
 </iframe>
 </div>
-</section>
-<section id="how-it-works" class="level2">
-<h2 class="anchored" data-anchor-id="how-it-works">How it Works</h2>
-<p>Use this section to explain how your application works using code blocks and text explanations (<strong>no more than 500 words excluding code</strong>):</p>
-<p>本研究的地表覆盖分类体系是以2020年深圳地区的遥感数据为基础建立的，结合当年城市空间格局与生态特征，设计了包括植被、建设用地、水体和裸地在内的指标体系，通过阈值规则实现多类别地表识别。</p>
-<p>分类精度通过与人工标注验证样本的对比，构建混淆矩阵，并计算总体精度、Kappa系数、生产者精度和用户精度等指标进行量化验证。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">setCenter</span>(<span class="fl">35.51898</span><span class="op">,</span> <span class="fl">33.90153</span><span class="op">,</span> <span class="dv">15</span>)<span class="op">;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">setOptions</span>(<span class="st">"satellite"</span>)<span class="op">;</span></span>
+<section id="data-pre-processing" class="level3">
+<h3 class="anchored" data-anchor-id="data-pre-processing">Data pre-processing</h3>
+<p>In this project, Shenzhen City is taken as the study area, and the year 2020 is selected as an example to use multi-source remote sensing data for surface cover classification and change analysis. Firstly, the boundary of Shenzhen City was extracted from the FAO GAUL database and centred. Subsequently, Landsat 8 data preprocessing, including cloud masking, radiometric correction and cropping to the study area, was performed.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> gaul <span class="op">=</span> ee<span class="op">.</span><span class="fu">FeatureCollection</span>(<span class="st">'FAO/GAUL_SIMPLIFIED_500m/2015/level2'</span>)<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> roi <span class="op">=</span> gaul<span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">eq</span>(<span class="st">'ADM2_NAME'</span><span class="op">,</span> <span class="st">'Shenzhen'</span>))<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">centerObject</span>(roi<span class="op">,</span> <span class="dv">11</span>)<span class="op">;</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> aoi <span class="op">=</span> ee<span class="op">.</span><span class="at">Geometry</span><span class="op">.</span><span class="fu">Point</span>(<span class="fl">35.51898</span><span class="op">,</span> <span class="fl">33.90153</span>)<span class="op">.</span><span class="fu">buffer</span>(<span class="dv">3000</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You can include images:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/beirut_change_2020.jpg" class="img-fluid figure-img"></p>
-<figcaption>Pixelwise T-Test, 2018</figcaption>
-</figure>
-</div>
-<p>and math: <span class="math display">\[ \Large ... \]</span></p>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Cloud masking and radiometric correction</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">maskL8sr</span>(image) {</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> qa <span class="op">=</span> image<span class="op">.</span><span class="fu">select</span>(<span class="st">'QA_PIXEL'</span>)<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> cloudBitMask <span class="op">=</span> <span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="dv">3</span><span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> shadowBitMask <span class="op">=</span> <span class="dv">1</span> <span class="op">&lt;&lt;</span> <span class="dv">4</span><span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> mask <span class="op">=</span> qa<span class="op">.</span><span class="fu">bitwiseAnd</span>(cloudBitMask)<span class="op">.</span><span class="fu">eq</span>(<span class="dv">0</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">and</span>(qa<span class="op">.</span><span class="fu">bitwiseAnd</span>(shadowBitMask)<span class="op">.</span><span class="fu">eq</span>(<span class="dv">0</span>))<span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> optical <span class="op">=</span> image<span class="op">.</span><span class="fu">select</span>(<span class="st">'SR_B.'</span>)<span class="op">.</span><span class="fu">multiply</span>(<span class="fl">0.0000275</span>)<span class="op">.</span><span class="fu">add</span>(<span class="op">-</span><span class="fl">0.2</span>)<span class="op">;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> thermal <span class="op">=</span> image<span class="op">.</span><span class="fu">select</span>(<span class="st">'ST_B.*'</span>)<span class="op">.</span><span class="fu">multiply</span>(<span class="fl">0.00341802</span>)<span class="op">.</span><span class="fu">add</span>(<span class="fl">149.0</span>)<span class="op">;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> image<span class="op">.</span><span class="fu">addBands</span>(optical<span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">true</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">addBands</span>(thermal<span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="kw">true</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">updateMask</span>(mask)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">clip</span>(roi)<span class="op">;</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="surface-cover-classification-and-area-statistics" class="level3">
+<h3 class="anchored" data-anchor-id="surface-cover-classification-and-area-statistics">7.2 Surface Cover Classification and Area Statistics</h3>
+<ul>
+<li>Calculate a variety of environmental indices such as Enhanced Vegetation Index (EVI), Normalised Water Body Index (MNDWI), Urban Index (NDBBI), Bare Land Index (BSI), etc;</li>
+<li>Setting thresholds to extract masks for different feature types, including built-up areas, different densities of vegetation, water bodies and other types;</li>
+<li>Superimpose each mask to generate a single-band classification image (Land Cover Map) and visualise it according to preset colours;</li>
+<li>Based on the classification results, the total area of each category and its percentage of the total area of the study area were calculated.</li>
+</ul>
+</section>
 </section>
 <section id="interaction-design" class="level2">
 <h2 class="anchored" data-anchor-id="interaction-design">8 Interaction Design</h2>
+<p>This project builds a dynamic, interactive application on the Google Earth Engine platform, with key features including.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Overview</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Monthly Analysis</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Yearly Trend Analysis</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Correlation Analysis</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false">UI Enhancements</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p><strong>- Year Selection</strong><br>
+Users can select any year (2013–2023) via a slider. Land cover classification, surface indices, and area statistics are updated dynamically, with a 5-second debounce to ensure stability.</p>
+<p><strong>- Land Cover Classification and Accuracy Assessment</strong><br>
+The app provides multilayer land cover maps (Built-up, Vegetation, Water, Other) and displays classification metrics, including Overall Accuracy and Kappa Coefficient.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<ul>
+<li>Monthly Nighttime Light Intensity Chart</li>
+<li>Monthly Land Surface Temperature (LST) Chart</li>
+<li>Annual Land Cover Area Pie Chart</li>
+<li>Vegetation Type Distribution Bar Chart</li>
+</ul>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<ul>
+<li>Annual Built-up Ratio vs LST Trend</li>
+<li>Built-up Area vs Nighttime Light Intensity</li>
+<li>Built-up Area vs Air Pollution (NO₂ concentration)</li>
+<li>Land Cover Ratio Trends (2013–2024)</li>
+</ul>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<ul>
+<li>Scatter plots and trendlines for:
+<ul>
+<li>EVI vs NDBBI</li>
+<li>NDBBI vs LST</li>
+<li>LST vs EVI<br>
+</li>
+</ul></li>
+<li>Real-time Pearson correlation coefficients are calculated and displayed.</li>
+</ul>
+</div>
+<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
+<ul>
+<li>Soft theme colors</li>
+<li>Dynamic show/hide controls for each chart</li>
+<li>Modular panels ensure a smooth</li>
+<li>Intuitive user experience.</li>
+</ul>
+</div>
+</div>
+</div>
 </section>
 <section id="limitations" class="level2">
 <h2 class="anchored" data-anchor-id="limitations">9 Limitations</h2>
+<p>While this project provides a comprehensive and dynamic exploration of urban ecological changes in Shenzhen, several limitations should be acknowledged.</p>
+<p>First, the analysis is primarily based on remote sensing-derived indicators processed on the Google Earth Engine (GEE) platform. Although these indicators effectively capture surface conditions, they inevitably simplify complex ecological and socioeconomic processes. Spectral indices and land cover classifications, while quantitatively robust, may not fully reflect the functional diversity and fine-scale heterogeneity of urban ecosystems.</p>
+<p>Second, the project focuses mainly on biophysical variables such as vegetation dynamics, water distribution, surface temperature, and built-up expansion. Broader socioeconomic factors—such as demographic shifts, policy interventions, and industrial restructuring—are not directly incorporated, which limits a holistic understanding of urbanization impacts.</p>
+<p>Finally, the reliance on satellite-based observations introduces inherent temporal and spatial limitations, particularly in capturing rapid micro-scale changes in dense urban environments. The constraints of GEE’s cloud computing environment, including processing quotas, data resolution, and algorithm flexibility, may also affect the depth and customization of the analysis.</p>
 </section>
 <section id="future-work" class="level2">
 <h2 class="anchored" data-anchor-id="future-work">10 Future work</h2>
+<p>Building on the current framework, several directions could enhance the depth and breadth of future research.</p>
+<p>First, integrating socioeconomic datasets—such as census data, land use planning records, and economic activity indicators—would allow a more comprehensive understanding of the drivers and consequences of urban ecological changes. Coupling remote sensing data with socioeconomic analysis could reveal more nuanced patterns of urbanization.</p>
+<p>Second, improving spatial and temporal resolution is crucial. The use of higher-resolution imagery (e.g., Sentinel-2, commercial satellite data) or fusion methods could better capture fine-scale variations, particularly in highly heterogeneous urban cores. Incorporating more frequent observations would also enhance the reliability of time-series analysis, especially for detecting rapid or seasonal changes.</p>
+<p>Last, expanding the analysis beyond surface conditions to include water quality metrics, or biodiversity indices could provide a fuller ecological profile. Integrating multiple environmental dimensions would move the assessment closer to ecosystem health evaluation rather than surface characterization alone.</p>
 </section>
 <section id="reference" class="level2">
 <h2 class="anchored" data-anchor-id="reference">11 Reference</h2>
@@ -344,6 +463,7 @@ window.Quarto = {
 <p>Zha, Y., Gao, J., &amp; Ni, S. (2003). Use of normalized difference built-up index in automatically mapping urban areas from TM imagery. International Journal of Remote Sensing, 24(3), 583–594. https://doi.org/10.1080/01431160304987</p>
 <p>Zheng, Y., Cheng, J., Yu, T., &amp; Shi, Q. (2018). Spatial relationship between NO₂ concentration and urban land use in a rapidly urbanizing region: A case study of the Pearl River Delta, China. Atmospheric Pollution Research, 9(3), 541–548. https://doi.org/10.1016/j.apr.2017.11.002</p>
 <p>Zhou, D., Zhao, S., Liu, S., Zhang, L., &amp; Zhu, C. (2014). Surface urban heat island in China’s 32 major cities: Spatial patterns and drivers. Remote Sensing of Environment, 152, 51–61. https://doi.org/10.1016/j.rse.2014.05.017</p>
+<p>Zhu, Z., &amp; Woodcock, C. E. (2014). Automated cloud, cloud shadow, and snow detection in multitemporal Landsat data: An algorithm designed specifically for monitoring land cover change. Remote Sensing of Environment, 152, 217–234. https://doi.org/10.1016/j.rse.2014.06.012</p>
 
 
 </section>

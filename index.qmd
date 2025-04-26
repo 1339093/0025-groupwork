@@ -1,33 +1,31 @@
-# Exploring the Ecological Impact of Urbanization in Shenzhen
+# Analysis of the evolution of urban land cover and environmental change in Shenzhen 
 
 **AUTHOR**  
 .. Group
 
 ## 1 Project Summary
-This project explores the environmental impacts of rapid urbanization in Shenzhen using remote sensing data and geospatial analysis on the Google Earth Engine platform. By combining vegetation, urban, and water-related indices with auxiliary datasets such as nighttime lights and air pollution, the study offers a multi-dimensional perspective on urban expansion and its ecological consequences.
-
-Through a land cover classification and time-series analysis from both monthly and annual scales, the project captures spatial patterns and temporal changes in surface conditions. The results provide valuable references for understanding the balance between urban growth and environmental sustainability, offering practical support for planning and decision-making in urban and ecological management.
+This project investigates the ecological impacts of rapid urbanization in Shenzhen by leveraging multi-source remote sensing data and geospatial analysis on the Google Earth Engine platform. Through the integration of spectral indices such as NDBBI, EVI, MNDWI, BSI, and land surface temperature (LST), combined with land cover classification and time-series analysis at both monthly and annual scales, the study captures spatial patterns and temporal trends of key surface changes. In addition, nighttime light intensity and NO₂ concentration data are incorporated to assess the relationship between urban expansion, human activities, and environmental quality. The results provide dynamic, multi-dimensional evidence to support sustainable urban planning and ecological management.
 
 ## 2 Introduction
 
 ### 2.1 Background
-Shenzhen, situated in the Pearl River Delta of southern China, has undergone rapid urbanization and economic transformation over recent decades, transitioning from a small fishing village into a major global metropolis. This rapid urban growth has brought significant economic benefits but also substantial environmental challenges, including increased urban heat islands, reduced vegetation coverage, water quality degradation, and heightened air pollution. Understanding and mitigating these ecological impacts is critical for ensuring sustainable urban development and maintaining quality of life for residents.
+Shenzhen, located in the Pearl River Delta region of southern China, has experienced rapid urbanization and economic transformation over the past few decades, evolving from a small fishing village into a major global metropolis. While this urban growth has generated significant economic prosperity, it has also led to substantial environmental challenges, including intensified urban heat island effects, declining vegetation cover, water quality degradation, and increased air pollution. Understanding and addressing these ecological impacts are essential for promoting sustainable urban development and safeguarding the quality of life for residents.
 
 ### 2.2 Literature review
-Urbanization significantly alters land surface characteristics, affecting local climate, hydrology, and biodiversity (Seto et al., 2012; Grimm et al., 2008). Zhou et al. (2017) demonstrated a strong link between urban expansion and intensified urban heat island effects, highlighting the role of vegetation in regulating urban microclimates. The Enhanced Vegetation Index (EVI) serves as a robust tool for assessing vegetation health and ecological quality in urban settings (Huete et al., 2002).
+Urbanization significantly alters land surface characteristics, influencing local climate, hydrology, and biodiversity (Seto et al., 2012; Grimm et al., 2008). Urban expansion has been strongly linked to intensified urban heat island effects, with vegetation playing a crucial role in regulating urban microclimates (Zhou et al., 2017). The Enhanced Vegetation Index (EVI) has proven effective for assessing vegetation health and ecological conditions in urban environments (Huete et al., 2002).
 
-Urban growth often results in the loss of permeable surfaces, increased runoff, and degradation of water quality, phenomena effectively monitored by the Modified Normalized Difference Water Index (MNDWI) (Xu, 2006). Likewise, indices such as the Normalized Difference Built-up Index (NDBBI) and the Bare Soil Index (BSI) provide quantitative means to track urban development and its ecological implications (Zha et al., 2003).
+Urban growth often leads to the loss of permeable surfaces, increased surface runoff, and degradation of water quality, challenges that can be effectively monitored through indices such as the Modified Normalized Difference Water Index (MNDWI) (Xu, 2006). Similarly, the Normalized Difference Built-up Index (NDBBI) and the Bare Soil Index (BSI) offer quantitative means to characterize urban development and its ecological impacts (Zha et al., 2003).
 
-Nighttime light imagery has emerged as a valuable proxy for urbanization intensity and human activity, correlating well with energy use and environmental pressures (Elvidge et al., 2013). The increasing availability of time-series satellite data, particularly from Landsat and MODIS, has further enabled the analysis of long-term urban ecological trends and seasonal variations (Weng et al., 2014).
+Nighttime light imagery has emerged as a valuable proxy for urbanization intensity and human activities, correlating with patterns of energy consumption and environmental stress (Elvidge et al., 2013). The increasing availability of long-term satellite observations, particularly from Landsat and MODIS platforms, has further facilitated the analysis of urban ecological dynamics over time (Weng et al., 2014).Recent advances in time-series remote sensing analysis have enabled more detailed tracking of urban ecological changes across different temporal scales, facilitating the identification of seasonal and interannual patterns (Zhu & Woodcock, 2014).
 
-In addition, studies have shown a close relationship between urban land expansion and atmospheric pollutants, including NO₂ concentrations, especially in rapidly growing metropolitan areas (Zheng et al., 2018). With the integration of remote sensing and machine learning approaches such as Random Forest classifiers, the precision of land cover mapping has improved considerably, supporting more detailed and scalable urban ecological assessments (Belgiu & Drăguţ, 2016).
+Furthermore, urban land expansion has been associated with rising levels of atmospheric pollutants, such as NO₂, especially in rapidly developing metropolitan areas (Zheng et al., 2018). The integration of remote sensing data with machine learning algorithms, such as Random Forest classifiers, has significantly enhanced the accuracy and scalability of urban land cover mapping (Belgiu & Drăguţ, 2016).
 
 ## 3 Problem Statement 
 
-How does urbanization impact ecological conditions in the Shenzhen region?
+How does urbanization impact Shenzhen’s surface and environmental conditions over time?
 
 Objective:
-To develop an interactive application using high-resolution and multi-temporal remote sensing techniques to assess the ecological impacts of urbanization in Shenzhen. By integrating spectral indices such as NDBBI, EVI, BSI, MNDWI, and LST with machine learning classification, the project identifies land cover changes (e.g., vegetation loss, surface temperature rise, water body shrinkage) and analyzes their correlation with urban expansion, aiming to support evidence-based urban planning and environmental management.
+To build an interactive monitoring and analysis platform that utilizes high-resolution, multi-temporal remote sensing datasets through the Google Earth Engine platform. By integrating indices such as NDBBI, EVI, BSI, MNDWI, and LST with machine learning-based land cover classification, the project identifies spatial patterns and temporal trends of key ecological indicators. It further quantifies the relationships between urban expansion and environmental variables—such as vegetation degradation, surface warming, water body shrinkage, nighttime light intensification, and NO₂ concentration changes—providing dynamic, multi-scale evidence to support sustainable urban planning and environmental management.
 
 ## 4 End User 
 
@@ -37,57 +35,197 @@ This application is designed to support urban planning departments and ecologica
 
 ## 5 Data
 
+
 | **Data Type**                      | **Dataset & Source**                                                  | **Usage**                                                                     | **Time Period**                     |
-|-----------------------------------|------------------------------------------------------------------------|--------------------------------------------------------------------------------|-------------------------------------|
-| **Land Surface Reflectance & Temperature** | `LANDSAT/LC08/C02/T1_L2` – USGS Landsat 8 Collection 2 Tier 1 Level 2 | Used to calculate EVI, NDBBI, BSI, MNDWI, NDMVI, and LST                     | 2013–2023 (Classification based on 2020) |
-| **Digital Elevation Model & Slope/Aspect** | `USGS/SRTMGL1_003` – NASA SRTM DEM (30 m)                             | Used for slope, aspect and terrain correction of EVI                         | Static (Global DEM)                 |
-| **Nighttime Lights**              | `NOAA/VIIRS/DNB/MONTHLY_V1/VCMSLCFG` – VIIRS Monthly DNB              | Used to assess urban activity and monthly urbanization trends                | 2013–2023                           |
-| **Tropospheric NO₂ Column**       | `COPERNICUS/S5P/OFFL/L3_NO2` – Sentinel-5P TROPOMI                    | Used to evaluate urban-related air pollution                                 | 2018–2023                           |
-| **Administrative Boundaries**     | `FAO/GAUL_SIMPLIFIED_500m/2015/level2` – FAO GAUL Level 2             | Used to define the region of interest (Shenzhen)                             | Static                              |
+|:-----------------------------------|:------------------------------------------------------------------------|:--------------------------------------------------------------------------------|:-------------------------------------|
+| **Surface Reflectance & Surface Temperature** | `LANDSAT/LC08/C02/T1_L2` – USGS Landsat 8 Collection 2 Tier 1 Level 2 | Calculation of spectral indices (EVI, NDBBI, BSI, MNDWI) and land surface temperature (LST); used for classification and temporal analysis | 2013–2023 (Classification focused on 2020) |
+| **Digital Elevation Model & Terrain Attributes** | `USGS/SRTMGL1_003` – NASA SRTM DEM (30 m)                             | Extraction of slope and aspect for topographic correction of EVI             | Static (Global DEM)                 |
+| **Nighttime Lights**              | `NOAA/VIIRS/DNB/MONTHLY_V1/VCMSLCFG` – VIIRS Monthly DNB              | Monitoring of urban activity intensity and temporal urbanization trends     | 2013–2023                           |
+| **Tropospheric NO₂ Concentration** | `COPERNICUS/S5P/OFFL/L3_NO2` – Sentinel-5P TROPOMI                    | Assessment of urban-related atmospheric pollution                            | 2018–2023                           |
+| **Administrative Boundaries**     | `FAO/GAUL_SIMPLIFIED_500m/2015/level2` – FAO GAUL Level 2             | Definition of region of interest (Shenzhen) for spatial analysis             | Static (Snapshot in 2015)            |
+
 
 ## 6 Methodology
 
 Flow chart
+```{mermaid}
+flowchart TD
+  A["Data Acquisition"]
+  B["Preprocessing (SR & LST Calibration)"]
+  B1["Cloud Masking (maskL8sr)"]
+  C["Spectral Index Calculation (EVI, NDBBI, MNDWI, BSI)"]
+  D["Terrain Correction (only for EVI)"]
+
+  E["Land Cover Classification:
+  - Built-up
+  - 4 Vegetation levels
+  - Water
+  - Other"]
+
+  V["Validation Sample Collection
+  (Stratified random sampling)"]
+
+  F1["Monthly Time-Series Analysis"]
+  F2["Annual Trend Analysis (2013-2023)"]
+
+  G1["Monthly Metrics:
+  - EVI/NDBBI/LST
+  - Nighttime Lights
+  - NO₂ (post-2018)"]
+  
+  G2["Annual Metrics:
+  - Built-up growth rate
+  - Vegetation loss
+  - LST trends
+  - NO₂ correlation"]
+
+  ACC["Accuracy Validation:
+  - OA=94.2%
+  - Kappa=0.911"]
+
+  H["Statistical Analysis:
+  - Area calculation
+  - Change detection"]
+
+  I["Correlation Analysis:
+  - EVI vs NDBBI
+  - LST vs Built-up
+  - NO₂ vs Urbanization"]
+
+  J["Interactive Visualization:
+  - Year slider control
+  - 3 analysis panels
+  - Dynamic charts
+  - Legend display"]
+
+  A --> B
+  B --> B1
+  B1 --> C
+  C -->|NDBBI/BSI/MNDWI| E
+  C -->|EVI| D --> E
+  E --> V
+  V --> ACC
+  E --> F1
+  E --> F2
+  F1 <--> F2
+  F1 --> G1
+  F2 --> G2
+  G1 --> H
+  G2 --> H
+  H --> I
+  I --> J
+```
 
 How are you using this data to address the problem?
 
+By preprocessing multi-source remote sensing data and calculating key ecological indices (EVI, NDBBI, MNDWI, BSI, LST), we classify land cover types, track monthly and annual changes, and analyze the relationships between urban expansion, environmental degradation, and human activities. This integrated approach provides spatial-temporal evidence to understand and quantify the ecological impacts of Shenzhen’s rapid urbanization.
 ## 7 Application 
 
 Replace the link below with the link to your application.
 
 :::{.column-page}
 
-<iframe src='https://ollielballinger.users.earthengine.app/view/turkey-earthquake' width='100%' height='700px'></iframe>
+<iframe src='https://folkloric-vault-452715-s9.projects.earthengine.app/view/casa0025groupfirstclass' width='100%' height='700px'></iframe>
 
 :::
-## How it Works 
 
-Use this section to explain how your application works using code blocks and text explanations (**no more than 500 words excluding code**):
+### Data pre-processing
+In this project, Shenzhen City is taken as the study area, and the year 2020 is selected as an example to use multi-source remote sensing data for surface cover classification and change analysis. Firstly, the boundary of Shenzhen City was extracted from the FAO GAUL database and centred. Subsequently, Landsat 8 data preprocessing, including cloud masking, radiometric correction and cropping to the study area, was performed.
 
-本研究的地表覆盖分类体系是以2020年深圳地区的遥感数据为基础建立的，结合当年城市空间格局与生态特征，设计了包括植被、建设用地、水体和裸地在内的指标体系，通过阈值规则实现多类别地表识别。
+```javascript
+var gaul = ee.FeatureCollection('FAO/GAUL_SIMPLIFIED_500m/2015/level2');
+var roi = gaul.filter(ee.Filter.eq('ADM2_NAME', 'Shenzhen'));
+Map.centerObject(roi, 11);
 
-分类精度通过与人工标注验证样本的对比，构建混淆矩阵，并计算总体精度、Kappa系数、生产者精度和用户精度等指标进行量化验证。
+// Cloud masking and radiometric correction
+function maskL8sr(image) {
+  var qa = image.select('QA_PIXEL');
+  var cloudBitMask = 1 << 3;
+  var shadowBitMask = 1 << 4;
+  var mask = qa.bitwiseAnd(cloudBitMask).eq(0)
+              .and(qa.bitwiseAnd(shadowBitMask).eq(0));
+  
+  var optical = image.select('SR_B.').multiply(0.0000275).add(-0.2);
+  var thermal = image.select('ST_B.*').multiply(0.00341802).add(149.0);
 
-```js
-Map.setCenter(35.51898, 33.90153, 15);
-
-Map.setOptions("satellite");
-
-var aoi = ee.Geometry.Point(35.51898, 33.90153).buffer(3000);
+  return image.addBands(optical, null, true)
+              .addBands(thermal, null, true)
+              .updateMask(mask)
+              .clip(roi);
+}
 ```
+### 7.2 Surface Cover Classification and Area Statistics
 
-You can include images:
+- Calculate a variety of environmental indices such as Enhanced Vegetation Index (EVI), Normalised Water Body Index (MNDWI), Urban Index (NDBBI), Bare Land Index (BSI), etc;
+- Setting thresholds to extract masks for different feature types, including built-up areas, different densities of vegetation, water bodies and other types;
+- Superimpose each mask to generate a single-band classification image (Land Cover Map) and visualise it according to preset colours;
+- Based on the classification results, the total area of each category and its percentage of the total area of the study area were calculated.
 
-![Pixelwise T-Test, 2018](images/beirut_change_2020.jpg)
-
-and math:
-$$ \Large ... $$
 
 ## 8 Interaction Design
 
+This project builds a dynamic, interactive application on the Google Earth Engine platform, with key features including.
+
+::: {.panel-tabset}
+
+### Overview
+
+**- Year Selection**  
+Users can select any year (2013–2023) via a slider. Land cover classification, surface indices, and area statistics are updated dynamically, with a 5-second debounce to ensure stability.
+
+**- Land Cover Classification and Accuracy Assessment**  
+The app provides multilayer land cover maps (Built-up, Vegetation, Water, Other) and displays classification metrics, including Overall Accuracy and Kappa Coefficient.
+
+### Monthly Analysis 
+
+- Monthly Nighttime Light Intensity Chart
+- Monthly Land Surface Temperature (LST) Chart
+- Annual Land Cover Area Pie Chart
+- Vegetation Type Distribution Bar Chart
+
+### Yearly Trend Analysis
+
+- Annual Built-up Ratio vs LST Trend
+- Built-up Area vs Nighttime Light Intensity
+- Built-up Area vs Air Pollution (NO₂ concentration)
+- Land Cover Ratio Trends (2013–2024)
+
+### Correlation Analysis
+
+- Scatter plots and trendlines for:
+  - EVI vs NDBBI
+  - NDBBI vs LST
+  - LST vs EVI  
+- Real-time Pearson correlation coefficients are calculated and displayed.
+
+### UI Enhancements
+
+- Soft theme colors
+- Dynamic show/hide controls for each chart
+- Modular panels ensure a smooth
+- Intuitive user experience.
+
+:::
+
+
 ## 9 Limitations
 
+While this project provides a comprehensive and dynamic exploration of urban ecological changes in Shenzhen, several limitations should be acknowledged.
+
+First, the analysis is primarily based on remote sensing-derived indicators processed on the Google Earth Engine (GEE) platform. Although these indicators effectively capture surface conditions, they inevitably simplify complex ecological and socioeconomic processes. Spectral indices and land cover classifications, while quantitatively robust, may not fully reflect the functional diversity and fine-scale heterogeneity of urban ecosystems.
+
+Second, the project focuses mainly on biophysical variables such as vegetation dynamics, water distribution, surface temperature, and built-up expansion. Broader socioeconomic factors—such as demographic shifts, policy interventions, and industrial restructuring—are not directly incorporated, which limits a holistic understanding of urbanization impacts.
+
+Finally, the reliance on satellite-based observations introduces inherent temporal and spatial limitations, particularly in capturing rapid micro-scale changes in dense urban environments. The constraints of GEE's cloud computing environment, including processing quotas, data resolution, and algorithm flexibility, may also affect the depth and customization of the analysis.
+
 ## 10 Future work
+Building on the current framework, several directions could enhance the depth and breadth of future research.
+
+First, integrating socioeconomic datasets—such as census data, land use planning records, and economic activity indicators—would allow a more comprehensive understanding of the drivers and consequences of urban ecological changes. Coupling remote sensing data with socioeconomic analysis could reveal more nuanced patterns of urbanization.
+
+Second, improving spatial and temporal resolution is crucial. The use of higher-resolution imagery (e.g., Sentinel-2, commercial satellite data) or fusion methods could better capture fine-scale variations, particularly in highly heterogeneous urban cores. Incorporating more frequent observations would also enhance the reliability of time-series analysis, especially for detecting rapid or seasonal changes.
+
+Last, expanding the analysis beyond surface conditions to include water quality metrics, or biodiversity indices could provide a fuller ecological profile. Integrating multiple environmental dimensions would move the assessment closer to ecosystem health evaluation rather than surface characterization alone.
 
 ## 11 Reference
 
@@ -112,3 +250,5 @@ Zha, Y., Gao, J., & Ni, S. (2003). Use of normalized difference built-up index i
 Zheng, Y., Cheng, J., Yu, T., & Shi, Q. (2018). Spatial relationship between NO₂ concentration and urban land use in a rapidly urbanizing region: A case study of the Pearl River Delta, China. Atmospheric Pollution Research, 9(3), 541–548. https://doi.org/10.1016/j.apr.2017.11.002
 
 Zhou, D., Zhao, S., Liu, S., Zhang, L., & Zhu, C. (2014). Surface urban heat island in China's 32 major cities: Spatial patterns and drivers. Remote Sensing of Environment, 152, 51–61. https://doi.org/10.1016/j.rse.2014.05.017
+
+Zhu, Z., & Woodcock, C. E. (2014). Automated cloud, cloud shadow, and snow detection in multitemporal Landsat data: An algorithm designed specifically for monitoring land cover change. Remote Sensing of Environment, 152, 217–234. https://doi.org/10.1016/j.rse.2014.06.012

@@ -222,7 +222,7 @@ By analysing annual trends in land cover types, we can quantify the rate of urba
 ![](images/7.3-1.png){width="100%"}
 
 ### 7.4 Correlation Analysis
-Our group also conducted a correlation analysis for several groups of environmental indices. We first calculated the annual mean for each environmental index, then set the sampling pixel size to 30 by 30 and randomly sampled 2,000 points for correlation analysis.
+Our group also conducted a correlation analysis for several groups of environmental indices. We first calculated the annual mean for each environmental index, then set the sampling pixel size to 30 by 30 and randomly sampled 2,000 points for correlation analysis.(Take 2016, 2020 and 2023 as an example)
 
 - EVI vs NOBBI
 ![](images/7.4-1.jpg){width="100%"}

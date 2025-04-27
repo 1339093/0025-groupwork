@@ -1,7 +1,7 @@
 # Analysis of the evolution of urban land cover and environmental change in Shenzhen 
 
 **AUTHOR**  
-.. Group
+FirstClass Group
 
 ## 1 Project Summary
 This project investigates the ecological impacts of rapid urbanization in Shenzhen by leveraging multi-source remote sensing data and geospatial analysis on the Google Earth Engine platform. Through the integration of spectral indices such as NDBBI, EVI, MNDWI, BSI, and land surface temperature (LST), combined with land cover classification and time-series analysis at both monthly and annual scales, the study captures spatial patterns and temporal trends of key surface changes. In addition, nighttime light intensity and NO₂ concentration data are incorporated to assess the relationship between urban expansion, human activities, and environmental quality. The results provide dynamic, multi-dimensional evidence to support sustainable urban planning and ecological management.
@@ -131,6 +131,7 @@ By preprocessing multi-source remote sensing data and calculating key ecological
 
 
 ### 7.1 Data pre-processing
+
 In this project, Shenzhen City is taken as the study area, and the year 2020 is selected as an example to use multi-source remote sensing data for surface cover classification and change analysis. Firstly, the boundary of Shenzhen City was extracted from the FAO GAUL database and centred. Subsequently, Landsat 8 data preprocessing, including cloud masking, radiometric correction and cropping to the study area, was performed.
 
 ```javascript
@@ -156,13 +157,75 @@ function maskL8sr(image) {
 }
 ```
 
-### 7.2 Surface Cover Classification and Area Statistics
+### 7.2 Surface Cover Classification, Statistics and Verifiation
 
-- Calculate a variety of environmental indices such as Enhanced Vegetation Index (EVI), Normalised Water Body Index (MNDWI), Urban Index (NDBBI), Bare Land Index (BSI), etc;
-- Setting thresholds to extract masks for different feature types, including built-up areas, different densities of vegetation, water bodies and other types;
+- Calculate a variety of environmental indices;
+- Setting thresholds to extract masks for different feature types;
 - Superimpose each mask to generate a single-band classification image (Land Cover Map) and visualise it according to preset colours;
-- Based on the classification results, the total area of each category and its percentage of the total area of the study area were calculated.
+- Statistics;
 
+```javascript
+ // MNDWI: Normalised water body index, which enhances the distinction of water bodies from other features and is used to extract water body boundaries
+  mndwi = image.expression(
+    '(GREEN - SWIR1) / (GREEN + SWIR1)', bandMap
+  ).rename('MNDWI');
+  
+  // EVI: Enhanced Vegetation Index, which performs better in areas of high vegetation cover and reduces atmospheric and soil background disturbances.
+  evi = image.expression(
+    '(2.5 * (NIRc - REDc)) / (NIRc + 6 * REDc - 7.5 * BLUE + 1)',
+    {
+      NIRc: nir_corrected,
+      REDc: red_corrected,
+      BLUE: blue_corrected
+    }
+  ).rename('EVI');
+
+  // NDBBI: Normalised Building Index, highlighting artificial built-up areas through the difference between SWIR2 and NIR/green light
+  ndbbi = image.expression(
+    '(1.5 * SWIR2 - ((NIR + GREEN)/2)) / (1.5 * SWIR2 + ((NIR + GREEN)/2))',
+    bandMap
+  ).rename('NDBBI');
+
+  // BSI: Bare Soil Index, combining visible and short-wave infrared reflectance for identifying areas of bare soil or sediment.
+  var bsi = image.expression(
+    '((RED + SWIR1) - (NIR + BLUE)) / ((RED + SWIR1) + (NIR + BLUE))',
+    bandMap
+  ).rename('BSI');
+
+  // RI: Red-to-blue ratio index, which emphasises certain surface features by the ratio of red to blue light reflectance.
+  var ri = image.expression('(RED - BLUE) / (RED + BLUE)', bandMap).rename('RI');
+```
+::: columns
+
+::: column
+![](images/7.2-1.jpg){fig-alt="left" fig-cap="left" width="100%"}
+:::
+
+::: column
+![](images/7.2-2.jpg){fig-alt="right" fig-cap="right" width="100%"}
+:::
+
+:::
+
+- Verification;
+
+About 10 validation points were evenly selected for each class in the study area, and after manual interpretation, they were used for accuracy assessment. By comparing the classification results with the validation samples, the following accuracy metrics were obtained:
+
+![](images/7.2-3.jpg){width="50%"}
+
+
+## 7.3 Annual trend analysis of land cover types
+By analysing annual trends in land cover types, we can quantify the rate of urban land expansion and monitor the decline or recovery of vegetation and water bodies, thus providing a dynamic and quantitative scientific basis for urban planning and ecological restoration.
+
+
+![](images/7.3.jpg){width="100%"}
+
+![](images/7.3-1.png){width="100%"}
+
+
+
+
+### 7.4 
 
 ## 8 Interaction Design
 

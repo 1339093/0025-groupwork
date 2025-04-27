@@ -167,8 +167,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#google-earth-engine-application" id="toc-google-earth-engine-application" class="nav-link" data-scroll-target="#google-earth-engine-application">7 Google Earth Engine Application</a>
   <ul class="collapse">
   <li><a href="#data-pre-processing" id="toc-data-pre-processing" class="nav-link" data-scroll-target="#data-pre-processing">7.1 Data pre-processing</a></li>
-  <li><a href="#surface-cover-classification-and-area-statistics" id="toc-surface-cover-classification-and-area-statistics" class="nav-link" data-scroll-target="#surface-cover-classification-and-area-statistics">7.2 Surface Cover Classification and Area Statistics</a></li>
+  <li><a href="#surface-cover-classification-statistics-and-verifiation" id="toc-surface-cover-classification-statistics-and-verifiation" class="nav-link" data-scroll-target="#surface-cover-classification-statistics-and-verifiation">7.2 Surface Cover Classification, Statistics and Verifiation</a></li>
   </ul></li>
+  <li><a href="#annual-trend-analysis-of-land-cover-types" id="toc-annual-trend-analysis-of-land-cover-types" class="nav-link" data-scroll-target="#annual-trend-analysis-of-land-cover-types">7.3 Annual trend analysis of land cover types</a></li>
   <li><a href="#interaction-design" id="toc-interaction-design" class="nav-link" data-scroll-target="#interaction-design">8 Interaction Design</a></li>
   <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">9 Limitations</a></li>
   <li><a href="#future-work" id="toc-future-work" class="nav-link" data-scroll-target="#future-work">10 Future work</a></li>
@@ -186,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="analysis-of-the-evolution-of-urban-land-cover-and-environmental-change-in-shenzhen" class="level1 page-columns page-full">
 <h1>Analysis of the evolution of urban land cover and environmental change in Shenzhen</h1>
 <p><strong>AUTHOR</strong><br>
-.. Group</p>
+FirstClass Group</p>
 <section id="project-summary" class="level2">
 <h2 class="anchored" data-anchor-id="project-summary">1 Project Summary</h2>
 <p>This project investigates the ecological impacts of rapid urbanization in Shenzhen by leveraging multi-source remote sensing data and geospatial analysis on the Google Earth Engine platform. Through the integration of spectral indices such as NDBBI, EVI, MNDWI, BSI, and land surface temperature (LST), combined with land cover classification and time-series analysis at both monthly and annual scales, the study captures spatial patterns and temporal trends of key surface changes. In addition, nighttime light intensity and NO₂ concentration data are incorporated to assess the relationship between urban expansion, human activities, and environmental quality. The results provide dynamic, multi-dimensional evidence to support sustainable urban planning and ecological management.</p>
@@ -378,15 +379,62 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>              <span class="op">.</span><span class="fu">clip</span>(roi)<span class="op">;</span></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="surface-cover-classification-and-area-statistics" class="level3">
-<h3 class="anchored" data-anchor-id="surface-cover-classification-and-area-statistics">7.2 Surface Cover Classification and Area Statistics</h3>
+<section id="surface-cover-classification-statistics-and-verifiation" class="level3">
+<h3 class="anchored" data-anchor-id="surface-cover-classification-statistics-and-verifiation">7.2 Surface Cover Classification, Statistics and Verifiation</h3>
 <ul>
-<li>Calculate a variety of environmental indices such as Enhanced Vegetation Index (EVI), Normalised Water Body Index (MNDWI), Urban Index (NDBBI), Bare Land Index (BSI), etc;</li>
-<li>Setting thresholds to extract masks for different feature types, including built-up areas, different densities of vegetation, water bodies and other types;</li>
+<li>Calculate a variety of environmental indices;</li>
+<li>Setting thresholds to extract masks for different feature types;</li>
 <li>Superimpose each mask to generate a single-band classification image (Land Cover Map) and visualise it according to preset colours;</li>
-<li>Based on the classification results, the total area of each category and its percentage of the total area of the study area were calculated.</li>
+<li>Statistics;</li>
 </ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a> <span class="co">// MNDWI: Normalised water body index, which enhances the distinction of water bodies from other features and is used to extract water body boundaries</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  mndwi <span class="op">=</span> image<span class="op">.</span><span class="fu">expression</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'(GREEN - SWIR1) / (GREEN + SWIR1)'</span><span class="op">,</span> bandMap</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  )<span class="op">.</span><span class="fu">rename</span>(<span class="st">'MNDWI'</span>)<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">// EVI: Enhanced Vegetation Index, which performs better in areas of high vegetation cover and reduces atmospheric and soil background disturbances.</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  evi <span class="op">=</span> image<span class="op">.</span><span class="fu">expression</span>(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'(2.5 * (NIRc - REDc)) / (NIRc + 6 * REDc - 7.5 * BLUE + 1)'</span><span class="op">,</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">NIRc</span><span class="op">:</span> nir_corrected<span class="op">,</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">REDc</span><span class="op">:</span> red_corrected<span class="op">,</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">BLUE</span><span class="op">:</span> blue_corrected</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  )<span class="op">.</span><span class="fu">rename</span>(<span class="st">'EVI'</span>)<span class="op">;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="co">// NDBBI: Normalised Building Index, highlighting artificial built-up areas through the difference between SWIR2 and NIR/green light</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  ndbbi <span class="op">=</span> image<span class="op">.</span><span class="fu">expression</span>(</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">'(1.5 * SWIR2 - ((NIR + GREEN)/2)) / (1.5 * SWIR2 + ((NIR + GREEN)/2))'</span><span class="op">,</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    bandMap</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  )<span class="op">.</span><span class="fu">rename</span>(<span class="st">'NDBBI'</span>)<span class="op">;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="co">// BSI: Bare Soil Index, combining visible and short-wave infrared reflectance for identifying areas of bare soil or sediment.</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> bsi <span class="op">=</span> image<span class="op">.</span><span class="fu">expression</span>(</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">'((RED + SWIR1) - (NIR + BLUE)) / ((RED + SWIR1) + (NIR + BLUE))'</span><span class="op">,</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    bandMap</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  )<span class="op">.</span><span class="fu">rename</span>(<span class="st">'BSI'</span>)<span class="op">;</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  <span class="co">// RI: Red-to-blue ratio index, which emphasises certain surface features by the ratio of red to blue light reflectance.</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> ri <span class="op">=</span> image<span class="op">.</span><span class="fu">expression</span>(<span class="st">'(RED - BLUE) / (RED + BLUE)'</span><span class="op">,</span> bandMap)<span class="op">.</span><span class="fu">rename</span>(<span class="st">'RI'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="columns">
+<div class="column">
+<p><img src="images/7.2-1.jpg" class="img-fluid" style="width:100.0%" data-fig-cap="left" alt="left"></p>
+</div><div class="column">
+<p><img src="images/7.2-2.jpg" class="img-fluid" style="width:100.0%" data-fig-cap="right" alt="right"></p>
+</div>
+</div>
+<ul>
+<li>Verification;</li>
+</ul>
+<p>About 10 validation points were evenly selected for each class in the study area, and after manual interpretation, they were used for accuracy assessment. By comparing the classification results with the validation samples, the following accuracy metrics were obtained:</p>
+<p><img src="images/7.2-3.jpg" class="img-fluid" style="width:50.0%"></p>
 </section>
+</section>
+<section id="annual-trend-analysis-of-land-cover-types" class="level2">
+<h2 class="anchored" data-anchor-id="annual-trend-analysis-of-land-cover-types">7.3 Annual trend analysis of land cover types</h2>
+<p>By analysing annual trends in land cover types, we can quantify the rate of urban land expansion and monitor the decline or recovery of vegetation and water bodies, thus providing a dynamic and quantitative scientific basis for urban planning and ecological restoration.</p>
+<p><img src="images/7.3.jpg" class="img-fluid" style="width:100.0%"></p>
+<p><img src="images/7.3-1.png" class="img-fluid" style="width:100.0%"></p>
 </section>
 <section id="interaction-design" class="level2">
 <h2 class="anchored" data-anchor-id="interaction-design">8 Interaction Design</h2>

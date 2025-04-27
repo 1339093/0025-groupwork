@@ -129,7 +129,6 @@ By preprocessing multi-source remote sensing data and calculating key ecological
 
 :::
 
-
 ### 7.1 Data pre-processing
 
 In this project, Shenzhen City is taken as the study area, and the year 2020 is selected as an example to use multi-source remote sensing data for surface cover classification and change analysis. Firstly, the boundary of Shenzhen City was extracted from the FAO GAUL database and centred. Subsequently, Landsat 8 data preprocessing, including cloud masking, radiometric correction and cropping to the study area, was performed.
@@ -214,7 +213,7 @@ About 10 validation points were evenly selected for each class in the study area
 ![](images/7.2-3.jpg){width="50%"}
 
 
-## 7.3 Annual trend analysis of land cover types
+### 7.3 Annual trend analysis of land cover types
 By analysing annual trends in land cover types, we can quantify the rate of urban land expansion and monitor the decline or recovery of vegetation and water bodies, thus providing a dynamic and quantitative scientific basis for urban planning and ecological restoration.
 
 
@@ -222,10 +221,20 @@ By analysing annual trends in land cover types, we can quantify the rate of urba
 
 ![](images/7.3-1.png){width="100%"}
 
+### 7.4 Correlation Analysis
+Our group also conducted a correlation analysis for several groups of environmental indices. We first calculated the annual mean for each environmental index, then set the sampling pixel size to 30 by 30 and randomly sampled 2,000 points for correlation analysis.
 
+- EVI vs NOBBI
+![](images/7.4-1.jpg){width="100%"}
+First, for the relationship between EVI (Enhanced Vegetation Index) and NDBBI, the two consistently show a significant negative correlation in the overall trend, which indicates that the higher the vegetation cover, the lower the proportion of built-up land, and vice versa. In other words, the more urbanized an area is, the lower the vegetation cover is, and this basic relationship remains stable between years. At the same time, as urbanization progresses, the scatter points begin to show more discrete points, possibly reflecting an increased tendency for urban expansion to lead to a decrease in vegetation cover, i.e., more low-vegetation, high-construction areas.
 
+- NOBBI vs LST
+![](images/7.4-2.jpg){width="100%"}
+Similarly, there is always a positive correlation between NDBBI and LST, i.e., the higher the proportion of built-up land, the higher the surface temperature. With the development of urbanization, the effect of built-up land on temperature increase becomes more significant.
 
-### 7.4 
+- LST vs EVI
+![](images/7.4-3.jpg){width="100%"}
+For the relationship between EVI and LST, the change is very obvious, from 2016 to 2023, the trend gradually evolves from a weak correlation to a strong negative correlation, i.e., the more vegetation there is, the lower the surface temperature is.The scatterplot for 16 years shows a very loose distribution, with the regression line being almost horizontal, and even showing signs of a slight positive correlation. However, as the city expands, the role of vegetation cover becomes more and more critical in reducing surface temperature, and the spatial differences in the urban heat island effect are more clearly amplified.
 
 ## 8 Interaction Design
 

@@ -168,8 +168,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#data-pre-processing" id="toc-data-pre-processing" class="nav-link" data-scroll-target="#data-pre-processing">7.1 Data pre-processing</a></li>
   <li><a href="#surface-cover-classification-statistics-and-verifiation" id="toc-surface-cover-classification-statistics-and-verifiation" class="nav-link" data-scroll-target="#surface-cover-classification-statistics-and-verifiation">7.2 Surface Cover Classification, Statistics and Verifiation</a></li>
-  </ul></li>
   <li><a href="#annual-trend-analysis-of-land-cover-types" id="toc-annual-trend-analysis-of-land-cover-types" class="nav-link" data-scroll-target="#annual-trend-analysis-of-land-cover-types">7.3 Annual trend analysis of land cover types</a></li>
+  <li><a href="#correlation-analysis" id="toc-correlation-analysis" class="nav-link" data-scroll-target="#correlation-analysis">7.4 Correlation Analysis</a></li>
+  </ul></li>
   <li><a href="#interaction-design" id="toc-interaction-design" class="nav-link" data-scroll-target="#interaction-design">8 Interaction Design</a></li>
   <li><a href="#limitations" id="toc-limitations" class="nav-link" data-scroll-target="#limitations">9 Limitations</a></li>
   <li><a href="#future-work" id="toc-future-work" class="nav-link" data-scroll-target="#future-work">10 Future work</a></li>
@@ -429,12 +430,21 @@ FirstClass Group</p>
 <p>About 10 validation points were evenly selected for each class in the study area, and after manual interpretation, they were used for accuracy assessment. By comparing the classification results with the validation samples, the following accuracy metrics were obtained:</p>
 <p><img src="images/7.2-3.jpg" class="img-fluid" style="width:50.0%"></p>
 </section>
-</section>
-<section id="annual-trend-analysis-of-land-cover-types" class="level2">
-<h2 class="anchored" data-anchor-id="annual-trend-analysis-of-land-cover-types">7.3 Annual trend analysis of land cover types</h2>
+<section id="annual-trend-analysis-of-land-cover-types" class="level3">
+<h3 class="anchored" data-anchor-id="annual-trend-analysis-of-land-cover-types">7.3 Annual trend analysis of land cover types</h3>
 <p>By analysing annual trends in land cover types, we can quantify the rate of urban land expansion and monitor the decline or recovery of vegetation and water bodies, thus providing a dynamic and quantitative scientific basis for urban planning and ecological restoration.</p>
 <p><img src="images/7.3.jpg" class="img-fluid" style="width:100.0%"></p>
 <p><img src="images/7.3-1.png" class="img-fluid" style="width:100.0%"></p>
+</section>
+<section id="correlation-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="correlation-analysis">7.4 Correlation Analysis</h3>
+<p>Our group also conducted a correlation analysis for several groups of environmental indices. We first calculated the annual mean for each environmental index, then set the sampling pixel size to 30 by 30 and randomly sampled 2,000 points for correlation analysis.</p>
+<ul>
+<li><p>EVI vs NOBBI <img src="images/7.4-1.jpg" class="img-fluid" style="width:100.0%"> First, for the relationship between EVI (Enhanced Vegetation Index) and NDBBI, the two consistently show a significant negative correlation in the overall trend, which indicates that the higher the vegetation cover, the lower the proportion of built-up land, and vice versa. In other words, the more urbanized an area is, the lower the vegetation cover is, and this basic relationship remains stable between years. At the same time, as urbanization progresses, the scatter points begin to show more discrete points, possibly reflecting an increased tendency for urban expansion to lead to a decrease in vegetation cover, i.e., more low-vegetation, high-construction areas.</p></li>
+<li><p>NOBBI vs LST <img src="images/7.4-2.jpg" class="img-fluid" style="width:100.0%"> Similarly, there is always a positive correlation between NDBBI and LST, i.e., the higher the proportion of built-up land, the higher the surface temperature. With the development of urbanization, the effect of built-up land on temperature increase becomes more significant.</p></li>
+<li><p>LST vs EVI <img src="images/7.4-3.jpg" class="img-fluid" style="width:100.0%"> For the relationship between EVI and LST, the change is very obvious, from 2016 to 2023, the trend gradually evolves from a weak correlation to a strong negative correlation, i.e., the more vegetation there is, the lower the surface temperature is.The scatterplot for 16 years shows a very loose distribution, with the regression line being almost horizontal, and even showing signs of a slight positive correlation. However, as the city expands, the role of vegetation cover becomes more and more critical in reducing surface temperature, and the spatial differences in the urban heat island effect are more clearly amplified.</p></li>
+</ul>
+</section>
 </section>
 <section id="interaction-design" class="level2">
 <h2 class="anchored" data-anchor-id="interaction-design">8 Interaction Design</h2>

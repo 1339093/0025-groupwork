@@ -125,7 +125,7 @@ By preprocessing multi-source remote sensing data and calculating key ecological
 
 :::{.column-page}
 
-<iframe src='https://folkloric-vault-452715-s9.projects.earthengine.app/view/casa0025groupfirstclass' width='100%' height='700px'></iframe>
+<iframe src='https://folkloric-vault-452715-s9.projects.earthengine.app/view/casa0025' width='110%' height='700px'></iframe>
 
 :::
 
@@ -155,6 +155,7 @@ function maskL8sr(image) {
               .clip(roi);
 }
 ```
+
 ### 7.2 Surface Cover Classification and Area Statistics
 
 - Calculate a variety of environmental indices such as Enhanced Vegetation Index (EVI), Normalised Water Body Index (MNDWI), Urban Index (NDBBI), Bare Land Index (BSI), etc;
